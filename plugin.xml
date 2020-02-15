@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+    <extension
+            id="application"
+            point="org.eclipse.core.runtime.applications">
+        <application>
+            <run
+                    class="dts_project.Application">
+            </run>
+        </application>
+    </extension>
+    <extension
+            point="org.eclipse.ui.perspectives">
+        <perspective
+                class="dts_project.Perspective"
+                name="RCP Perspective"
+                id="dts_project.mainPerspective">
+        </perspective>
+    </extension>
+    <extension
+            point="org.eclipse.ui.views">
+        <view
+                class="dts_project.views.catalogExplorerView.CatalogExplorerView"
+                id="dts_project.views.catalogExplorerView"
+                name="组件库"
+                restorable="true">
+        </view>
+    </extension>
+    <extension
+            point="org.eclipse.ui.perspectiveExtensions"> 
+        <perspectiveExtension
+                targetID="dts_project.mainPerspective"> 
+            <view
+                    id="dts_project.views.catalogExplorerView"
+                    ratio="0.5f"
+                    relationship="top"
+                    relative="org.eclipse.ui.editorss"
+                    showTitle="true"
+                    standalone="false"
+                    visible="true">    
+            </view>
+        </perspectiveExtension>
+    </extension>
+
+</plugin>
