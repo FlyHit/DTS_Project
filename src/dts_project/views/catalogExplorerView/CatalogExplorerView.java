@@ -1,11 +1,6 @@
 package dts_project.views.catalogExplorerView;
 
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.nebula.jface.galleryviewer.FlatTreeContentProvider;
-import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
 import org.eclipse.nebula.widgets.gallery.Gallery;
-import org.eclipse.nebula.widgets.gallery.GalleryItem;
 import org.eclipse.nebula.widgets.gallery.NoGroupRenderer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -15,6 +10,7 @@ import org.eclipse.ui.part.ViewPart;
 public class CatalogExplorerView extends ViewPart {
 	private Gallery gallery;
 	private CatalogTreeViewer catalogTreeViewer;
+	private ICatalogTreeModel model;
 
 	public CatalogExplorerView() {
 	}
@@ -33,10 +29,11 @@ public class CatalogExplorerView extends ViewPart {
 //		itemRenderer.setSelectionBackgroundColor(new Color(parent.getDisplay(), 180,225,255));
 		gallery.setGroupRenderer(noGroupRenderer);
 //		gallery.setItemRenderer(itemRenderer);
-		catalogTreeViewer = new CatalogTreeViewer(gallery);
+		model = new FileTreeModel();
+		catalogTreeViewer = new CatalogTreeViewer(gallery, model);
 		catalogTreeViewer.setContentProvider(new CatalogContentProvider());
 		catalogTreeViewer.setLabelProvider(new CatalogLabelProvider());
-		catalogTreeViewer.refresh();
+		catalogTreeViewer.setInput();
 		catalogTreeViewer.addDoubleClickListener(event -> {
 			catalogTreeViewer.open();
 		});
