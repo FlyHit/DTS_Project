@@ -1,6 +1,8 @@
 package dts_project.views.catalogExplorerView;
 
-public interface ICatalogTreeModel {
+import java.util.List;
+
+public interface ICatalogTreeModel<T> {
     Object[] getChildren(Object parentElement);
 
     Object getParent(Object element);
@@ -9,9 +11,18 @@ public interface ICatalogTreeModel {
 
     Object getRootNode();
 
-    void setRootNode(Object rootNode);
+    /**
+     * @return 父节点列表（父节点，父父节点...)
+     */
+    List<T> getRoots();
+
+    void setRoots(Object rootNode);
 
     void registerObserver(RootNodeObserver observer);
 
     void notifyObserver();
+
+    void open(String itemName);
+
+    void back();
 }

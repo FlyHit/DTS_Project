@@ -13,8 +13,7 @@ public class CatalogController implements ICatalogController {
 
     @Override
     public void open(GalleryItem galleryItem) {
-        String text = galleryItem.getText();
-        String newRootNode = model.getRootNode() + text + "\\";
-        model.setRootNode(newRootNode);
+        String itemName = galleryItem.getText();
+        model.open(itemName);
     }
 }

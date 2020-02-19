@@ -1,10 +1,19 @@
 package dts_project.views.catalogExplorerView.navigateBar.buttonPart;
 
+import dts_project.views.catalogExplorerView.ICatalogTreeModel;
+
 public class ButtonPartController {
+    private ICatalogTreeModel model;
+
+    public ButtonPartController(ICatalogTreeModel model) {
+        this.model = model;
+    }
+
     /**
      * 后退
      */
     public void back() {
+        model.back();
     }
 
     /**
