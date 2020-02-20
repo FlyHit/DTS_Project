@@ -25,4 +25,6 @@ public interface ICatalogTreeModel<T> {
     void open(String itemName);
 
     void back();
+
+    void handleInput(Object input);
 }

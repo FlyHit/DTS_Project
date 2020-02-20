@@ -20,8 +20,10 @@ public class ButtonPart {
     private ToolBar toolBar;
     private ToolItem backItem;
     private ToolItem favoriteItem;
+    private Composite composite;
 
     public ButtonPart(Composite parent, ICatalogTreeModel model) {
+        this.composite = parent;
         toolBar = new ToolBar(parent, SWT.FLAT);
         final Image[] image = {null};
         backItem = new ToolItem(toolBar, SWT.PUSH);
@@ -32,7 +34,7 @@ public class ButtonPart {
         ResourceLocator.imageDescriptorFromBundle(Application.PLUGIN_ID, IImageKeys.STAR)
                 .ifPresent(imageDescriptor -> image[0] = imageDescriptor.createImage());
         favoriteItem.setImage(image[0]);
-        controller = new ButtonPartController(model);
+        controller = new ButtonPartController(this, model);
         addListener();
     }
 
@@ -55,5 +57,9 @@ public class ButtonPart {
                 controller.jumpToCatalog();
             }
         });
+    }
+
+    Composite getComposite() {
+        return composite;
     }
 }

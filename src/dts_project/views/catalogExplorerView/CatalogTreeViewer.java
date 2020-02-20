@@ -48,9 +48,6 @@ public class CatalogTreeViewer implements RootNodeObserver {
 		galleryTreeViewer.addDoubleClickListener(listener);
 	}
 
-	public void openCatalog() {
-	}
-
 	/**
 	 * 返回当前选中的项目。该viewer设计为只能单选。
 	 *

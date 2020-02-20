@@ -1,9 +1,16 @@
 package dts_project.views.catalogExplorerView.navigateBar.breadcrumb;
 
+import dts_project.views.catalogExplorerView.FileTreeModel;
 import dts_project.views.catalogExplorerView.ICatalogTreeModel;
 import dts_project.views.catalogExplorerView.RootNodeObserver;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -14,13 +21,49 @@ public class Breadcrumb implements RootNodeObserver {
 	private IBreadcrumbController controller;
 	private ICatalogTreeModel model;
 	private ToolBar toolBar;
+    private Text siteText;
 	private Composite composite;
+    private GridData gridData;
 
 	public Breadcrumb(Composite parent, ICatalogTreeModel model) {
 		this.composite = parent;
 		this.model = model;
 		model.registerObserver(this);
 		toolBar = new ToolBar(parent, SWT.DROP_DOWN);
+        gridData = new GridData();
+        toolBar.setLayoutData(gridData);
+        siteText = new Text(parent, SWT.FLAT);
+        siteText.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
+        siteText.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                Text text = (Text) e.widget;
+                String path = (String) model.getRootNode();
+                text.setText(path.substring(FileTreeModel.BASEPATH.length()));
+                text.selectAll();
+                gridData.exclude = true;
+                toolBar.setVisible(false);
+                composite.layout();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                Text text = (Text) e.widget;
+                text.setText("");
+                gridData.exclude = false;
+                toolBar.setVisible(true);
+                composite.layout();
+            }
+        });
+        siteText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.keyCode == SWT.CR) {
+                    Text text = (Text) e.widget;
+                    controller.inputCatalog(text.getText());
+                }
+            }
+        });
 		controller = new BreadcrumbController(model, this);
 		addAll();
 	}
@@ -58,24 +101,20 @@ public class Breadcrumb implements RootNodeObserver {
 		return toolBar;
 	}
 
+    Composite getComposite() {
+        return composite;
+    }
+
+    Text getSiteText() {
+        return siteText;
+    }
+
 	IBreadcrumbController getController() {
 		return controller;
 	}
 
 	@Override
 	public void update() {
-//		List list = model.getRoots();
 		addAll();
-//		int listSize = list.size();
-//		int breadcrumbSize = toolBar.getItemCount();
-//		if (listSize < breadcrumbSize) {
-//			remove();
-//		} else {
-//			add((String) list.get(listSize - 1));
-//		}
-	}
-
-	public void setLayoutData(Object layout) {
-		toolBar.setLayoutData(layout);
 	}
 }

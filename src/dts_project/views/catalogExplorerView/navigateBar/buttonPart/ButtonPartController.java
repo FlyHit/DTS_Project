@@ -4,8 +4,10 @@ import dts_project.views.catalogExplorerView.ICatalogTreeModel;
 
 public class ButtonPartController {
     private ICatalogTreeModel model;
+    private ButtonPart buttonPart;
 
-    public ButtonPartController(ICatalogTreeModel model) {
+    public ButtonPartController(ButtonPart buttonPart, ICatalogTreeModel model) {
+        this.buttonPart = buttonPart;
         this.model = model;
     }
 
@@ -14,6 +16,7 @@ public class ButtonPartController {
      */
     public void back() {
         model.back();
+        buttonPart.getComposite().setFocus();
     }
 
     /**
