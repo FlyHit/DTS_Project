@@ -1,14 +1,15 @@
-package dts_project.views.catalogExplorerView.navigateBar.breadcrumb;
+package CWidget.explorer.addressBar.breadcrumb;
 
+import CWidget.explorer.contentPane.ICatalogTreeModel;
+import CWidget.explorer.contentPane.RootNodeObserver;
 import dts_project.views.catalogExplorerView.FileTreeModel;
-import dts_project.views.catalogExplorerView.ICatalogTreeModel;
-import dts_project.views.catalogExplorerView.RootNodeObserver;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
@@ -32,7 +33,7 @@ public class Breadcrumb implements RootNodeObserver {
 		toolBar = new ToolBar(parent, SWT.DROP_DOWN);
         gridData = new GridData();
         toolBar.setLayoutData(gridData);
-        siteText = new Text(parent, SWT.FLAT);
+        siteText = new Text(this, SWT.FLAT);
         siteText.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
         siteText.addFocusListener(new FocusAdapter() {
             @Override
@@ -43,7 +44,7 @@ public class Breadcrumb implements RootNodeObserver {
                 text.selectAll();
                 gridData.exclude = true;
                 toolBar.setVisible(false);
-                composite.layout();
+                layout();
             }
 
             @Override
@@ -52,7 +53,7 @@ public class Breadcrumb implements RootNodeObserver {
                 text.setText("");
                 gridData.exclude = false;
                 toolBar.setVisible(true);
-                composite.layout();
+                layout();
             }
         });
         siteText.addKeyListener(new KeyAdapter() {

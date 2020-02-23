@@ -1,4 +1,4 @@
-package dts_project.views.catalogExplorerView.navigateBar.buttonPart;
+package CWidget.explorer.buttonPart;
 
 import dts_project.Application;
 import dts_project.views.catalogExplorerView.ICatalogTreeModel;
@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 /**
- * 导航栏的按钮部分：返回按钮+收藏按钮
+ * 地址栏旁边的按钮部分：返回按钮+收藏按钮
  */
 public class ButtonPart {
     private ButtonPartController controller;

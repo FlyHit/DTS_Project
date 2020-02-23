@@ -1,6 +1,6 @@
 package dts_project.views.catalogExplorerView.navigateBar.buttonPart;
 
-import dts_project.views.catalogExplorerView.ICatalogTreeModel;
+import CWidget.explorer.contentPane.ICatalogTreeModel;
 
 public class ButtonPartController {
     private ICatalogTreeModel model;

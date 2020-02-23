@@ -1,4 +1,4 @@
-package dts_project.views.catalogExplorerView;
+package CWidget.explorer.contentPane;
 
 import java.util.List;
 

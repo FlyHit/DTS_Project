@@ -1,6 +1,6 @@
 package dts_project.views.catalogExplorerView.navigateBar.breadcrumb;
 
-import dts_project.views.catalogExplorerView.ICatalogTreeModel;
+import CWidget.explorer.contentPane.ICatalogTreeModel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -53,7 +53,7 @@ public class BreadcrumbController implements IBreadcrumbController {
 	public void inputCatalog(Object catalog) {
 		model.handleInput(catalog);
 		// 使siteText lost focus
-		breadcrumb.getComposite().setFocus();
+		breadcrumb.setFocus();
 	}
 
 	/**

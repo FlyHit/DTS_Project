@@ -1,4 +1,4 @@
-package dts_project.views.catalogExplorerView;
+package CWidget.explorer;
 
 public interface IImageKeys {
 	String FOLDER = "icons/folder_icon_64.png";

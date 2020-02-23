@@ -1,11 +1,15 @@
-package dts_project.views.catalogExplorerView;
+package CWidget.explorer.contentPane;
 
+import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
 import org.eclipse.nebula.widgets.gallery.Gallery;
 import org.eclipse.nebula.widgets.gallery.GalleryItem;
+import org.eclipse.nebula.widgets.gallery.NoGroupRenderer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 
 public class CatalogTreeViewer implements RootNodeObserver {
 	private Gallery gallery;
@@ -13,13 +17,22 @@ public class CatalogTreeViewer implements RootNodeObserver {
 	private ICatalogTreeModel model;
 	private ICatalogController controller;
 
-	public CatalogTreeViewer(Gallery gallery, ICatalogTreeModel model) {
-		// TODO check style : 传入的Gallery应为SWT.SINGLE
-		this.gallery = gallery;
+    public CatalogTreeViewer(Composite parent, ICatalogTreeModel model) {
+        // TODO galleryItem显示text有省略号，改成分行显示
+        // 单选&垂直滚动条
+        gallery = new Gallery(parent, SWT.SINGLE | SWT.V_SCROLL);
+        // 不显示group的标题
+        NoGroupRenderer noGroupRenderer = new NoGroupRenderer();
+        noGroupRenderer.setItemSize(64, 64);
+//		DefaultGalleryItemRenderer itemRenderer = new DefaultGalleryItemRenderer();
+//		// item被选择后的背景颜色
+//		itemRenderer.setSelectionBackgroundColor(new Color(parent.getDisplay(), 180,225,255));
+        gallery.setGroupRenderer(noGroupRenderer);
 		this.galleryTreeViewer = new GalleryTreeViewer(gallery);
 		this.model = model;
 		this.model.registerObserver(this);
 		this.controller = new CatalogController(this, model);
+        galleryTreeViewer.addDoubleClickListener(this::doubleClick);
 	}
 
 	public void setContentProvider(ITreeContentProvider contentProvider) {
@@ -61,7 +74,7 @@ public class CatalogTreeViewer implements RootNodeObserver {
 	/**
 	 * 打开文件夹或文件
 	 */
-	public void open() {
+    private void open() {
 		GalleryItem galleryItem = getSelectionItem();
 		controller.open(galleryItem);
 	}
@@ -70,4 +83,8 @@ public class CatalogTreeViewer implements RootNodeObserver {
 	public void update() {
 		galleryTreeViewer.setInput(model);
 	}
+
+    private void doubleClick(DoubleClickEvent event) {
+        open();
+    }
 }

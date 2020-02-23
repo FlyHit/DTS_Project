@@ -1,5 +1,8 @@
 package dts_project.views.catalogExplorerView;
 
+import CWidget.explorer.contentPane.ICatalogTreeModel;
+import CWidget.explorer.contentPane.RootNodeObserver;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
 package dts_project.views.catalogExplorerView;
 
+import CWidget.explorer.contentPane.ICatalogTreeModel;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
 public class CatalogContentProvider implements ITreeContentProvider {

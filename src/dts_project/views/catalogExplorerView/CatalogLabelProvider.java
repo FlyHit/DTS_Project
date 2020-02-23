@@ -1,5 +1,6 @@
 package dts_project.views.catalogExplorerView;
 
+import CWidget.explorer.IImageKeys;
 import dts_project.Application;
 import org.eclipse.jface.resource.ResourceLocator;
 import org.eclipse.jface.viewers.ILabelProvider;
