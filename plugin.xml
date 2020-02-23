@@ -43,5 +43,21 @@
             </view>
         </perspectiveExtension>
     </extension>
+    <extension
+            id="product"
+            point="org.eclipse.core.runtime.products">
+        <product
+                application="dts_project.application"
+                name="DTS_Project">
+            <property
+                    name="rendererFactoryUri"
+                    value="bundleclass://dts_project/dts_project.renderer.CommonRendererFactory">
+            </property>
+            <property
+                    name="appName"
+                    value="DTS_Project">
+            </property>
+        </product>
+    </extension>
 
 </plugin>

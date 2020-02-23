@@ -1,6 +1,6 @@
 package dts_project;
 
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -20,9 +20,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-        configurer.setInitialSize(new Point(400, 300));
         configurer.setShowCoolBar(false);
         configurer.setShowStatusLine(false);
-        configurer.setTitle("Hello RCP"); //$NON-NLS-1$
+        configurer.setTitle("DTS");
+    }
+
+    @Override
+    public void postWindowOpen() {
+        IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+        IWorkbenchWindow window = configurer.getWindow();
+        window.getShell().setMaximized(true);
     }
 }
