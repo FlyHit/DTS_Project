@@ -30,10 +30,13 @@ public class RibbonPerspectiveRenderer extends PerspectiveRenderer {
         ((StackLayout) com.getLayout()).topControl = viewForm;
 
         Composite topComposite = new Composite(viewForm, SWT.BORDER);
-        topComposite.setLayout(new FillLayout());
+        FillLayout fillLayout = new FillLayout();
+        fillLayout.marginHeight = 0;
+        fillLayout.marginWidth = 0;
+        topComposite.setLayout(fillLayout);
         RibbonComposite ribbon = null;
         try {
-            ribbon = new RibbonComposite(topComposite, SWT.NONE);
+            ribbon = new RibbonComposite(topComposite, SWT.FLAT | SWT.NONE);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

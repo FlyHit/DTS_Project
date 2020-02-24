@@ -1,5 +1,7 @@
 package dts_project;
 
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
@@ -29,6 +31,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         IWorkbenchWindow window = configurer.getWindow();
-        window.getShell().setMaximized(true);
+        Shell shell = window.getShell();
+        shell.setMaximized(true);
+        shell.setBackground(new Color(shell.getDisplay(), 255, 255, 255));
     }
 }
