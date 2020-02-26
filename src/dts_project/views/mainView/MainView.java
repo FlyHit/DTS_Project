@@ -29,8 +29,12 @@ public class MainView extends ViewPart {
         listViewer.setLabelProvider(new CLabelProvider());
         list = new ArrayList<>();
         list.add(new Property("name", "Name", "Text", "Property"));
-        list.add(new Property("age", "Age", "Text", "Property"));
-        list.add(new Property("gender", "Gender", "Text", "Event"));
+        list.add(new Property("age", "Age", "Text", "Event"));
+        Property property = new Property("age", "Age", "Text", "Property");
+        property.setCategory("B");
+        property.setSimple(true);
+        list.add(property);
+        list.add(new Property("gender", "Gender", "Text", "Property"));
         list.add(new Property("tel", "Tel", "Text", "Event"));
         lists = new ArrayList<>();
         lists.add(list);
