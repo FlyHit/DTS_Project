@@ -1,5 +1,6 @@
 package dts_project.views.propView;
 
+import dts_project.property.CPropertySheetPage;
 import dts_project.views.mainView.MainView;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -32,8 +33,9 @@ public class PropView extends ViewPart {
         styledText = new StyledText(helpComposite, SWT.FLAT | SWT.READ_ONLY);
 
         IPropertySheetPage propertySheetPage = new CPropertySheetPage(ID, styledText);
-//		propertySheetPage.setActionBars();
+
         propertySheetPage.createControl(propComposite);
+        propertySheetPage.setActionBars(getViewSite().getActionBars());
 
         sashForm.setWeights(new int[]{70, 30});
         ISelectionService selectionService = getSite().getWorkbenchWindow().getSelectionService();

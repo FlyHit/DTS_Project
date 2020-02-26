@@ -1,7 +1,7 @@
 package dts_project.views.eventView;
 
+import dts_project.property.CPropertySheetPage;
 import dts_project.views.mainView.MainView;
-import dts_project.views.propView.CPropertySheetPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.StyledText;

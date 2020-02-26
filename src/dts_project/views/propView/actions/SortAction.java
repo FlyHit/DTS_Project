@@ -1,20 +1,25 @@
 package dts_project.views.propView.actions;
 
+import dts_project.property.propertyDescriptor.CTextPropertyDescriptor;
 import org.eclipse.jface.action.Action;
-import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.jface.resource.ResourceLocator;
 
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-
+/**
+ * 按钮动作：以字典顺序排序
+ */
 public class SortAction extends Action {
-    private IPropertySheetPage propertySheetPage;
+    public final static String ID = "dt_project.views.propView.actions.sortAction";
 
-    protected SortAction() throws IntrospectionException {
-        super();
-        Introspector.getBeanInfo(this.getClass());
+    public SortAction() {
+        setId(ID);
+        setToolTipText("排序");
+        setImageDescriptor(ResourceLocator.imageDescriptorFromBundle("dts_project",
+                ActionImageKeys.SORT).orElse(null));
     }
 
     @Override
+
     public void run() {
+        CTextPropertyDescriptor.hasCategory = !CTextPropertyDescriptor.hasCategory;
     }
 }

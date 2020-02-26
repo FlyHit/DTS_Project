@@ -1,7 +1,7 @@
-package dts_project.views.propView;
+package dts_project.property;
 
-import dts_project.property.Property;
 import dts_project.views.eventView.EventView;
+import dts_project.views.propView.PropView;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -9,18 +9,17 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheetEntry;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheetSorter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CPropertySheetPage extends PropertySheetPage {
-    private String description;
     private StyledText text;
-    private String partId;
+    private String partId;  // 持有该page的视图的ID
 
     public CPropertySheetPage(String partId, StyledText text) {
         this.partId = partId;
@@ -29,6 +28,7 @@ public class CPropertySheetPage extends PropertySheetPage {
 
     @Override
     public void handleEntrySelection(ISelection selection) {
+        // 点击属性在帮助面板显示属性描述
         if (selection instanceof IStructuredSelection) {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;
             Optional.ofNullable((PropertySheetEntry) structuredSelection.getFirstElement()).ifPresent(entry -> {
@@ -38,7 +38,7 @@ public class CPropertySheetPage extends PropertySheetPage {
         super.handleEntrySelection(selection);
     }
 
-    public void updateDescription(String name, String description) {
+    private void updateDescription(String name, String description) {
         StyleRange range = new StyleRange();
         range.start = 0;
         range.length = name.length();
@@ -86,13 +86,12 @@ public class CPropertySheetPage extends PropertySheetPage {
                         break;
                 }
             }
-
         }
         super.selectionChanged(part, selection);
     }
 
     @Override
-    public void setPropertySourceProvider(IPropertySourceProvider newProvider) {
-        super.setPropertySourceProvider(newProvider);
+    protected void setSorter(PropertySheetSorter sorter) {
+        super.setSorter(sorter);
     }
 }

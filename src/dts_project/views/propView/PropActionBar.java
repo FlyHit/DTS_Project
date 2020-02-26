@@ -1,5 +1,6 @@
 package dts_project.views.propView;
 
+import dts_project.views.propView.actions.SortAction;
 import org.eclipse.jface.action.*;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.services.IServiceLocator;
@@ -11,7 +12,8 @@ public class PropActionBar implements IActionBars {
     private ToolBarManager toolBarManager;
 
     public PropActionBar() {
-//        toolBarManager.add();
+        toolBarManager = new ToolBarManager();
+        toolBarManager.add(new SortAction());
     }
 
     @Override
@@ -25,7 +27,7 @@ public class PropActionBar implements IActionBars {
 
     @Override
     public IMenuManager getMenuManager() {
-        return null;
+        return new MenuManager();
     }
 
     @Override
@@ -40,16 +42,14 @@ public class PropActionBar implements IActionBars {
 
     @Override
     public IToolBarManager getToolBarManager() {
-        return new ToolBarManager();
+        return toolBarManager;
     }
 
     @Override
     public void setGlobalActionHandler(String actionId, IAction handler) {
-
     }
 
     @Override
     public void updateActionBars() {
-
     }
 }
