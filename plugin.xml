@@ -27,6 +27,24 @@
                 name="组件库"
                 restorable="true">
         </view>
+        <view
+                class="dts_project.views.propView.PropView"
+                id="dts_project.views.propView"
+                name="属性窗口"
+                restorable="true">
+        </view>
+        <view
+                class="dts_project.views.mainView.MainView"
+                id="dts_project.views.mainView"
+                name="主窗口"
+                restorable="true">
+        </view>
+        <view
+                class="dts_project.views.eventView.EventView"
+                id="dts_project.views.eventView"
+                name="事件窗口"
+                restorable="true">
+        </view>
     </extension>
     <extension
             point="org.eclipse.ui.perspectiveExtensions"> 
@@ -34,9 +52,35 @@
                 targetID="dts_project.mainPerspective"> 
             <view
                     id="dts_project.views.catalogExplorerView"
-                    ratio="0.5f"
+                    ratio="1.0f"
                     relationship="top"
                     relative="org.eclipse.ui.editorss"
+                    showTitle="true"
+                    standalone="false"
+                    visible="true">    
+            </view>
+            <view
+                    id="dts_project.views.mainView"
+                    ratio="1.0f"
+                    relationship="right"
+                    relative="dts_project.views.catalogExplorerView"
+                    showTitle="true"
+                    standalone="false"
+                    visible="true">    
+            </view>
+            <view
+                    id="dts_project.views.propView"
+                    ratio="0.5f"
+                    relationship="bottom"
+                    relative="dts_project.views.catalogExplorerView"
+                    showTitle="true"
+                    standalone="false"
+                    visible="true">    
+            </view>
+            <view
+                    id="dts_project.views.eventView"
+                    relationship="stack"
+                    relative="dts_project.views.catalogExplorerView"
                     showTitle="true"
                     standalone="false"
                     visible="true">    
@@ -59,5 +103,14 @@
             </property>
         </product>
     </extension>
-
+    <extension
+            point="org.eclipse.core.runtime.adapters">
+        <factory
+                adaptableType="java.util.List"
+                class="dts_project.property.PropertySourceAdapterFactory">
+            <adapter
+                    type="org.eclipse.ui.views.properties.IPropertySource">
+            </adapter>
+        </factory>
+    </extension>
 </plugin>

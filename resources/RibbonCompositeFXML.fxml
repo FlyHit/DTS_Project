@@ -55,7 +55,7 @@
 <BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="184" prefWidth="184" xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/8.0.141">
-    <top>
+    <center>
         <Ribbon prefHeight="202.0" prefWidth="-Infinity">
             <tabs>
                 <RibbonTab text="主页">
@@ -222,5 +222,5 @@
             </tabs>
         </Ribbon>
 
-    </top>
+    </center>
 </BorderPane>
