@@ -17,43 +17,42 @@ import java.io.IOException;
 @SuppressWarnings("restriction")
 public class RibbonPerspectiveRenderer extends PerspectiveRenderer {
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public Widget createWidget(MUIElement element, Object parent) {
-        if (!(element instanceof MPerspective) || !(parent instanceof Composite))
-            return null;
+	@SuppressWarnings("deprecation")
+	@Override
+	public Widget createWidget(MUIElement element, Object parent) {
+		if (!(element instanceof MPerspective) || !(parent instanceof Composite))
+			return null;
 
-        Composite com = (Composite) parent;
+		Composite com = (Composite) parent;
 
-        ViewForm viewForm = new ViewForm(com, SWT.NONE);
+		ViewForm viewForm = new ViewForm(com, SWT.FLAT);
 
-        ((StackLayout) com.getLayout()).topControl = viewForm;
+		((StackLayout) com.getLayout()).topControl = viewForm;
 
-        Composite topComposite = new Composite(viewForm, SWT.BORDER);
-        FillLayout fillLayout = new FillLayout();
-        fillLayout.marginHeight = 0;
-        fillLayout.marginWidth = 0;
-        topComposite.setLayout(fillLayout);
-        RibbonComposite ribbon = null;
-        try {
-            ribbon = new RibbonComposite(topComposite, SWT.FLAT | SWT.NONE);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        viewForm.setTopLeft(topComposite);
+		Composite topComposite = new Composite(viewForm, SWT.FLAT);
+		FillLayout fillLayout = new FillLayout();
 
-        IStylingEngine stylingEngine = (IStylingEngine) getContext(element).get(IStylingEngine.SERVICE_NAME);
-        stylingEngine.setClassname(ribbon, "ribbonComposite");
+		topComposite.setLayout(fillLayout);
+		RibbonComposite ribbon = null;
+		try {
+			ribbon = new RibbonComposite(topComposite, SWT.FLAT | SWT.NO_TRIM);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		viewForm.setTopLeft(topComposite);
 
-        Composite perspParent = new Composite(viewForm, SWT.NONE);
-        viewForm.setContent(perspParent);
-        perspParent.setLayout(new StackLayout());
+		IStylingEngine stylingEngine = (IStylingEngine) getContext(element).get(IStylingEngine.SERVICE_NAME);
+		stylingEngine.setClassname(ribbon, "ribbonComposite");
 
-        Composite perspArea = new Composite(perspParent, SWT.NONE);
-        perspArea.setLayout(new FillLayout());
-        stylingEngine.setClassname(perspArea, "perspectiveLayout"); //$NON-NLS-1$
-        return perspArea;
-    }
+		Composite perspParent = new Composite(viewForm, SWT.FLAT);
+		viewForm.setContent(perspParent);
+		perspParent.setLayout(new StackLayout());
+
+		Composite perspArea = new Composite(perspParent, SWT.FLAT);
+		perspArea.setLayout(new FillLayout());
+		stylingEngine.setClassname(perspArea, "perspectiveLayout"); //$NON-NLS-1$
+		return perspArea;
+	}
 
 }

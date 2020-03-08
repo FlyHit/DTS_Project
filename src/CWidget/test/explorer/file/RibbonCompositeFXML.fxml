@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2016, 2018 Pixel Duke (Pedro Duque Vieira - www.pixelduke.com)
+  ~  All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~    * Redistributions of source code must retain the above copyright
+  ~  notice, this list of conditions and the following disclaimer.
+  ~    * Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~    * Neither the name of Pixel Duke, any associated website, nor the
+  ~  names of its contributors may be used to endorse or promote products
+  ~  derived from this software without specific prior written permission.
+  ~
+  ~  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ~  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~  DISCLAIMED. IN NO EVENT SHALL PIXEL DUKE BE LIABLE FOR ANY
+  ~  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<?import com.pixelduke.control.Ribbon?>
+<?import com.pixelduke.control.ribbon.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="184" prefWidth="184" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8.0.141">
+    <top>
+        <Ribbon prefHeight="202.0" prefWidth="-Infinity">
+            <tabs>
+                <RibbonTab text="主页">
+                    <ribbonGroups>
+                        <RibbonGroup title="编辑">
+                            <nodes>
+                                <Button contentDisplay="TOP" styleClass="big" text="选择模式" wrapText="true">
+                                    <graphic>
+                                        <ImageView>
+                                            <Image url="@/icons/file_icon_32.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="TOP" styleClass="big" text="浏览模式" wrapText="true">
+                                    <graphic>
+                                        <ImageView>
+                                            <Image url="@../../../icons/move_32px.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Column>
+                                    <Button text="查找" minWidth="80" alignment="CENTER_LEFT">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../../../../icons/star_icon_16.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button text="查找下一个" minWidth="120" alignment="CENTER_LEFT">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../../../../icons/star_icon_16.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button text="全选" minWidth="80" alignment="CENTER_LEFT">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../../../../icons/star_icon_16.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </Column>
+                                <Button contentDisplay="TOP" styleClass="big" text="文本" wrapText="true">
+                                    <graphic>
+                                        <ImageView>
+                                            <Image url="@../../../icons/text_32px.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <!--<Button contentDisplay="TOP" text="Save as" wrapText="true" alignment="BOTTOM_LEFT" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <Image url="@icons8_Save_as_32px.png" />
+                                        </ImageView>
+                                    </graphic>
+                                </Button>-->
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="动画">
+                            <nodes>
+                                <Column>
+                                    <Button text="重置">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../../../../icons/star_icon_16.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button text="设置">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../../../../icons/star_icon_16.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </Column>
+                                <Column>
+                                    <HBox>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <Image url="@../../../icons/pause_16px.png"/>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <Image url="@../../../icons/play_16px.png"/>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <Image url="@../../../icons/playAndPause_16px.png"/>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <Image url="@../../../icons/fast_forward_16px.png"/>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </HBox>
+                                    <Slider>
+                                    </Slider>
+                                </Column>
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="工具">
+                            <nodes>
+                                <Column>
+                                    <MenuButton text="消息/日志输出">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../../../icons/icons8_Lock_16px.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </MenuButton>
+                                    <MenuButton text="工具">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../../../icons/icons8_Lock_16px.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </MenuButton>
+                                    <MenuButton text="窗口">
+                                        <graphic>
+                                            <ImageView>
+                                                <Image url="@../../../icons/icons8_Lock_16px.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </MenuButton>
+                                </Column>
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="其他">
+                            <nodes>
+                                <RibbonItem label="文本框：">
+                                    <graphic>
+                                        <ImageView>
+                                            <Image url="@../../../icons/icons8_Lock_16px.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                    <item>
+                                        <TextField>
+                                        </TextField>
+                                    </item>
+                                </RibbonItem>
+                            </nodes>
+                        </RibbonGroup>
+                    </ribbonGroups>
+                </RibbonTab>
+                <RibbonTab text="布局">
+                </RibbonTab>
+                <RibbonTab text="可视化">
+                </RibbonTab>
+                <!--<RibbonTab text="SERIES" contextualColor="blue">-->
+                <!--</RibbonTab>-->
+            </tabs>
+        </Ribbon>
+
+    </top>
+</BorderPane>

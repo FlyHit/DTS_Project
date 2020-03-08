@@ -49,9 +49,9 @@
     <extension
             point="org.eclipse.ui.perspectiveExtensions"> 
         <perspectiveExtension
-                targetID="dts_project.mainPerspective"> 
+                targetID="dts_project.mainPerspective">
             <view
-                    id="dts_project.views.catalogExplorerView"
+                    id="dts_project.views.mainView"
                     ratio="1.0f"
                     relationship="top"
                     relative="org.eclipse.ui.editorss"
@@ -60,10 +60,10 @@
                     visible="true">    
             </view>
             <view
-                    id="dts_project.views.mainView"
-                    ratio="1.0f"
-                    relationship="right"
-                    relative="dts_project.views.catalogExplorerView"
+                    id="dts_project.views.catalogExplorerView"
+                    ratio="0.2f"
+                    relationship="left"
+                    relative="dts_project.views.mainView"
                     showTitle="true"
                     standalone="false"
                     visible="true">    

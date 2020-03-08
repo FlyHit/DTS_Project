@@ -1,4 +1,4 @@
-package dts_project.property.propertyDescriptor;
+package dts_project.property.propertyDescriptor.textPropertyDescriptor;
 
 public class UnitFactory {
     /**
@@ -8,6 +8,6 @@ public class UnitFactory {
      * @return 属性的单位
      */
     public String getUnit(String type) {
-        return "";
+        return "m";
     }
 }

@@ -29,7 +29,7 @@ public class EventView extends ViewPart {
         helpComposite.setLayout(new FillLayout());
         styledText = new StyledText(helpComposite, SWT.FLAT | SWT.READ_ONLY);
 
-        IPropertySheetPage propertySheetPage = new CPropertySheetPage(ID, styledText);
+        IPropertySheetPage propertySheetPage = new CPropertySheetPage(ID);
 //		propertySheetPage.setActionBars();
         propertySheetPage.createControl(propComposite);
 

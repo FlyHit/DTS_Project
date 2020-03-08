@@ -1,5 +1,6 @@
 package dts_project.views.catalogExplorerView.navigateBar.breadcrumb;
 
+import CWidget.explorer.contentPane.Node;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -11,19 +12,21 @@ public class BreadcrumbItem {
         toolItem.addListener(SWT.Selection, event -> {
             IBreadcrumbController controller = parent.getController();
             ToolItem item = (ToolItem) event.widget;
-            String path = (String) item.getData("path");
+            Node catalog = (Node) item.getData("node");
 
             if (event.detail == SWT.ARROW) {
                 controller.previewCatalog(item);
             } else {
-                controller.jumpToCatalog(path);
+                controller.jumpToCatalog(catalog);
             }
         });
     }
 
     public void setText(String text) {
-        String itemName = BreadcrumbController.getItemName(text);
-        toolItem.setText(itemName);
-        toolItem.setData("path", text);
+        toolItem.setText(text);
+    }
+
+    public void setNode(Node node) {
+        toolItem.setData("node", node);
     }
 }

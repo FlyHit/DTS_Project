@@ -31,9 +31,9 @@ public class RibbonComposite extends Composite {
 		};
 
 		URL resource = RibbonComposite.class.getResource(RESOURCE);
-		System.out.println(resource);
 		Parent root = FXMLLoader.load(resource);
 		Scene scene = new Scene(root);
 		fxCanvas.setScene(scene);
+//		layout(true, true);
 	}
 }

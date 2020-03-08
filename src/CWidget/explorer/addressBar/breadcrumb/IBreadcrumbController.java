@@ -1,10 +1,12 @@
-package dts_project.views.catalogExplorerView.navigateBar.breadcrumb;
+package CWidget.explorer.addressBar.breadcrumb;
+
+import CWidget.explorer.contentPane.Node;
 
 public interface IBreadcrumbController {
     /**
      * 跳转到目录
      */
-    void jumpToCatalog(Object catalog);
+    void jumpToCatalog(Node catalog);
 
     /**
      * 预览目录
@@ -13,5 +15,5 @@ public interface IBreadcrumbController {
      */
     void previewCatalog(Object item);
 
-    void inputCatalog(Object catalog);
+    void inputCatalog(String catalog);
 }

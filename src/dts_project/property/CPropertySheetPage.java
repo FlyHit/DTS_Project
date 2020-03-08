@@ -1,5 +1,7 @@
 package dts_project.property;
 
+import CWidget.searchBox.ISearchController;
+import CWidget.searchBox.SearchBox;
 import dts_project.views.eventView.EventView;
 import dts_project.views.propView.PropView;
 import org.eclipse.jface.action.*;
@@ -7,8 +9,13 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.PropertySheetEntry;
 import org.eclipse.ui.views.properties.PropertySheetPage;
@@ -18,24 +25,29 @@ import java.util.List;
 import java.util.Optional;
 
 public class CPropertySheetPage extends PropertySheetPage {
+	private SearchBox searchBox;
+	private ISearchController controller;
 	private StyledText text;
 	private String partId; // 持有该page的视图的ID
+	private SashForm sashForm;
+	private Composite propComposite;
+	private Composite propPageComposite;
+	private Composite helpComposite;
 
-	public CPropertySheetPage(String partId, StyledText text) {
+	public CPropertySheetPage(String partId) {
 		this.partId = partId;
-		this.text = text;
 	}
 
 	@Override
 	public void handleEntrySelection(ISelection selection) {
-		// 点击属性在帮助面板显示属性描述
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			Optional.ofNullable((PropertySheetEntry) structuredSelection.getFirstElement()).ifPresent(entry -> {
-				updateDescription(entry.getDisplayName(), entry.getDescription());
-			});
+			// 点击属性在帮助面板显示属性描述
+			Optional.ofNullable((PropertySheetEntry) structuredSelection.getFirstElement())
+					.ifPresent(entry -> updateDescription(entry.getDisplayName(), entry.getDescription()));
+
+			super.handleEntrySelection(selection);
 		}
-		super.handleEntrySelection(selection);
 	}
 
 	//
@@ -97,13 +109,11 @@ public class CPropertySheetPage extends PropertySheetPage {
 								  IStatusLineManager statusLineManager) {
 		super.makeContributions(menuManager, toolBarManager, statusLineManager);
 		// 修改toolTipText和Text（menuItem的显示文本）
-		ActionContributionItem categoriesItem = (ActionContributionItem)
-				toolBarManager.find("categories");
+		ActionContributionItem categoriesItem = (ActionContributionItem) toolBarManager.find("categories");
 		IAction categories = categoriesItem.getAction();
 		categories.setToolTipText("排序");
 		categories.setText("排序");
-		ActionContributionItem filterItem = (ActionContributionItem)
-				toolBarManager.find("filter");
+		ActionContributionItem filterItem = (ActionContributionItem) toolBarManager.find("filter");
 		IAction filter = filterItem.getAction();
 		filter.setToolTipText("显示高级属性");
 		filter.setText("只显示高级属性");
@@ -117,4 +127,34 @@ public class CPropertySheetPage extends PropertySheetPage {
 		menuManager.add(categories);
 		menuManager.add(filter);
 	}
+
+	@Override
+	public void createControl(Composite parent) {
+		sashForm = new SashForm(parent, SWT.FLAT | SWT.VERTICAL);
+
+		propComposite = new Composite(sashForm, SWT.FLAT | SWT.BORDER);
+		propComposite.setLayout(new GridLayout());
+		searchBox = new SearchBox(propComposite, SWT.FLAT);
+		searchBox.setController(new ISearchController() {
+
+			@Override
+			public void search(String searchContent) {
+				CPropertySheetPage.this.searchProperty(searchContent);
+			}
+		});
+		searchBox.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false));
+		propPageComposite = new Composite(propComposite, SWT.FLAT);
+		propPageComposite.setLayout(new FillLayout());
+		propPageComposite.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
+		super.createControl(propPageComposite);
+
+		helpComposite = new Composite(sashForm, SWT.FLAT | SWT.BORDER);
+		helpComposite.setLayout(new FillLayout());
+		text = new StyledText(helpComposite, SWT.FLAT);
+		// TODO 这里不可编辑但是还是会显示光标，可以试试label
+		text.setEditable(false);
+
+		sashForm.setWeights(new int[]{70, 30});
+	}
+
 }
