@@ -1,33 +1,46 @@
 package CWidget.explorer.contentPane.catalogPane;
 
 import CWidget.explorer.contentPane.IContentTreeModel;
+import CWidget.explorer.contentPane.Node;
 import CWidget.explorer.contentPane.RootNodeObserver;
+import dts_project.Application;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ResourceLocator;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer;
+import org.eclipse.nebula.widgets.gallery.DefaultGalleryItemRenderer;
 import org.eclipse.nebula.widgets.gallery.Gallery;
 import org.eclipse.nebula.widgets.gallery.GalleryItem;
 import org.eclipse.nebula.widgets.gallery.NoGroupRenderer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchActionConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CatalogPane extends Composite implements RootNodeObserver {
     private Gallery gallery;
     private GalleryTreeViewer galleryTreeViewer;
     private IContentTreeModel model;
     private ICatalogController controller;
+    private ImageDescriptor starDescriptor;
 
     public CatalogPane(Composite parent, IContentTreeModel model) {
         super(parent, SWT.FLAT);
         setLayout(new FillLayout());
+        starDescriptor = ResourceLocator
+                .imageDescriptorFromBundle(Application.PLUGIN_ID, "resources/icons/star_icon_16.png")
+                .orElse(ImageDescriptor.getMissingImageDescriptor());
         // TODO galleryItem显示text有省略号，改成分行显示
         // 单选&垂直滚动条
         gallery = new Gallery(this, SWT.SINGLE | SWT.V_SCROLL);
@@ -83,6 +96,22 @@ public class CatalogPane extends Composite implements RootNodeObserver {
          * 相当于重新解析了一遍（调用getChildren()等），起到了刷新的作用。
          */
         galleryTreeViewer.setInput(model);
+
+        // 与收藏列表比较，为收藏的项目添加星星
+        GalleryItem[] items = gallery.getItems()[0].getItems();
+        List<Object> favoriteList = new ArrayList<>();
+        for (Node node : model.getFavoriteList()) {
+            favoriteList.add(node.getData());
+        }
+
+        for (GalleryItem item : items) {
+            Node node = (Node) item.getData();
+            Image image = null;
+            if (node != null && favoriteList.contains(node.getData())) {
+                image = starDescriptor.createImage();
+            }
+            item.setData(DefaultGalleryItemRenderer.OVERLAY_BOTTOM_RIGHT, image);
+        }
     }
 
     private void doubleClick(DoubleClickEvent event) {
@@ -104,5 +133,9 @@ public class CatalogPane extends Composite implements RootNodeObserver {
         for (IContributionItem item : controller.createMenuItem()) {
             contextMenu.add(item);
         }
+    }
+
+    Gallery getGallery() {
+        return gallery;
     }
 }

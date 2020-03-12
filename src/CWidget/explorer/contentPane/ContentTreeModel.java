@@ -146,12 +146,20 @@ public abstract class ContentTreeModel implements IContentTreeModel {
     @Override
     public void addToFavorite(String itemName) {
         Node node = findNode(itemName);
+        favoriteList.add(node);
         notifyFavoriteObservers(true, node);
     }
 
     @Override
     public void removeFromFavorite(String itemName) {
         Node node = findNode(itemName);
+        Node removeNode = null;
+        for (Node n : favoriteList) {
+            if (n.getData().equals(node.getData())) {
+                removeNode = n;
+            }
+        }
+        favoriteList.remove(removeNode);
         notifyFavoriteObservers(false, node);
     }
 

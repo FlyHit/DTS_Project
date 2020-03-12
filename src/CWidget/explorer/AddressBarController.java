@@ -2,16 +2,19 @@ package CWidget.explorer;
 
 import CWidget.explorer.addressBar.AddressBar;
 import CWidget.explorer.addressBar.IAddressBarController;
+import CWidget.explorer.contentPane.ContentPane;
 import CWidget.explorer.contentPane.IContentTreeModel;
 import CWidget.explorer.contentPane.Node;
 
 public class AddressBarController implements IAddressBarController {
     private IContentTreeModel model;
     private AddressBar addressBar;
+    private Explorer explorer;
 
-    public AddressBarController(AddressBar addressBar, IContentTreeModel model) {
+    public AddressBarController(Explorer explorer, AddressBar addressBar, IContentTreeModel model) {
         this.model = model;
         this.addressBar = addressBar;
+        this.explorer = explorer;
     }
 
     @Override
@@ -22,6 +25,12 @@ public class AddressBarController implements IAddressBarController {
         // TODO 地址不合法，可出现一些提示信息
         addressBar.forceFocus();
         return isValid;
+    }
+
+    @Override
+    public void jumpToCatalog(Node catalog) {
+        model.setRoots(catalog);
+        explorer.switchPage(ContentPane.PAGE.VIEWER);
     }
 
     /**

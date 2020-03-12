@@ -160,7 +160,9 @@ public class AddressBar extends Composite implements RootNodeObserver {
         item.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                model.setRoots(node);
+                Optional.ofNullable(controller).ifPresent(c -> {
+                    c.jumpToCatalog(node);
+                });
             }
         });
 
@@ -180,7 +182,9 @@ public class AddressBar extends Composite implements RootNodeObserver {
             menuItem.addSelectionListener(new SelectionAdapter() {
                 @Override
                 public void widgetSelected(SelectionEvent e) {
-                    model.setRoots(child);
+                    Optional.ofNullable(controller).ifPresent(c -> {
+                        c.jumpToCatalog(node);
+                    });
                 }
             });
         }

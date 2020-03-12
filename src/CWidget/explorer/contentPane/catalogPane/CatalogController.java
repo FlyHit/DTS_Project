@@ -1,14 +1,15 @@
 package CWidget.explorer.contentPane.catalogPane;
 
 import CWidget.explorer.contentPane.IContentTreeModel;
+import dts_project.Application;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ResourceLocator;
 import org.eclipse.nebula.widgets.gallery.DefaultGalleryItemRenderer;
 import org.eclipse.nebula.widgets.gallery.GalleryItem;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +22,9 @@ public class CatalogController implements ICatalogController {
     public CatalogController(CatalogPane catalogPane, IContentTreeModel model) {
         this.catalogPane = catalogPane;
         this.model = model;
-        URL url = CatalogController.class.getResource("/icons/star_icon_16.png");
-        starDescriptor = ImageDescriptor.createFromURL(url);
+        starDescriptor = ResourceLocator
+                .imageDescriptorFromBundle(Application.PLUGIN_ID, "resources/icons/star_icon_16.png")
+                .orElse(ImageDescriptor.getMissingImageDescriptor());
     }
 
     @Override
@@ -53,9 +55,8 @@ public class CatalogController implements ICatalogController {
         public void run() {
             Optional.ofNullable(catalogPane.getSelectionItem()).ifPresent(item -> {
                 model.addToFavorite(item.getText(0));
-                // TODO 添加星星后刷新
-                // TODO 打开等操作后galleryItem会被dispose掉，然后星星就没了（可以和favoriteList比较）
                 item.setData(DefaultGalleryItemRenderer.OVERLAY_BOTTOM_RIGHT, starDescriptor.createImage());
+                catalogPane.getGallery().redraw(item);
             });
         }
 
@@ -72,8 +73,8 @@ public class CatalogController implements ICatalogController {
         public void run() {
             Optional.ofNullable(catalogPane.getSelectionItem()).ifPresent(item -> {
                 model.removeFromFavorite(item.getText(0));
-                // TODO 添加星星后刷新
                 item.setData(DefaultGalleryItemRenderer.OVERLAY_BOTTOM_RIGHT, null);
+                catalogPane.getGallery().redraw(item);
             });
         }
 

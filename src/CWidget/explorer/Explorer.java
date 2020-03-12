@@ -52,9 +52,8 @@ public class Explorer extends Composite implements RootNodeObserver {
 		buttonPart.setLayoutData(new GridData(GridData.FILL, GridData.FILL, false, true));
 		buttonPart.setController(new ButtonPartController(this, model));
 		addressBar = new AddressBar(middleComposite, model);
-		addressBar.setLayoutData(new GridData(GridData.FILL, GridData.FILL,
-				true, false));
-		addressBar.setController(new AddressBarController(addressBar, model));
+        addressBar.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false));
+        addressBar.setController(new AddressBarController(this, addressBar, model));
 
 		contentPane = new ContentPane(this, model);
 		contentPane.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
