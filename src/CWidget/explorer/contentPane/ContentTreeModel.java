@@ -42,11 +42,14 @@ public abstract class ContentTreeModel implements IContentTreeModel {
     }
 
     @Override
-    public void setRoots(Node rootNode) {
+    public boolean setRoots(Node rootNode) {
         if (setRootNode(rootNode)) {
             updateRoots(rootNode);
             notifyRootNodeObserver();
+            return true;
         }
+
+        return false;
     }
 
     /**

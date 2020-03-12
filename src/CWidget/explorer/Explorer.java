@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 public class Explorer extends Composite implements RootNodeObserver {
 	private SearchBox searchBox;
 	private ButtonPart buttonPart;
+	private AddressBar addressBar;
 	private ContentPane contentPane;
 	private Color white;
 	private IContentTreeModel model;
@@ -50,7 +51,10 @@ public class Explorer extends Composite implements RootNodeObserver {
 		buttonPart = new ButtonPart(middleComposite);
 		buttonPart.setLayoutData(new GridData(GridData.FILL, GridData.FILL, false, true));
 		buttonPart.setController(new ButtonPartController(this, model));
-		new AddressBar(middleComposite, model).setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false));
+		addressBar = new AddressBar(middleComposite, model);
+		addressBar.setLayoutData(new GridData(GridData.FILL, GridData.FILL,
+				true, false));
+		addressBar.setController(new AddressBarController(addressBar, model));
 
 		contentPane = new ContentPane(this, model);
 		contentPane.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));

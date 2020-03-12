@@ -21,7 +21,7 @@ public interface IContentTreeModel {
      */
     List<Node> getRoots();
 
-    void setRoots(Node rootNode);
+    boolean setRoots(Node rootNode);
 
     void registerRootNodeObserver(RootNodeObserver observer);
 

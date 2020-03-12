@@ -7,16 +7,15 @@ import CWidget.explorer.contentPane.Node;
 import CWidget.explorer.contentPane.RootNodeObserver;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
+import java.util.Optional;
+
 public class AddressBar extends Composite implements RootNodeObserver {
-    private IBreadcrumbController controller;
+    private IAddressBarController controller;
     private Breadcrumb breadcrumb;
     private Text addressText;
     private IContentTreeModel model;
@@ -55,11 +54,24 @@ public class AddressBar extends Composite implements RootNodeObserver {
                 layout();
             }
         });
+
+        addressText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.keyCode == SWT.CR) {
+                    Optional.ofNullable(controller).ifPresent(c -> {
+                        // 可使用返回值，显示一些提示信息
+                        c.handleInput(addressText.getText());
+                    });
+                }
+            }
+        });
         showAddressText(false);
         addAll();
         model.registerRootNodeObserver(this);
     }
 
+    // 将breadcrumb上一串item的名字转换为地址的形式
     private void focusGained() {
         StringBuilder address = new StringBuilder();
         for (BreadcrumbItem item : breadcrumb.getItems()) {
@@ -78,6 +90,8 @@ public class AddressBar extends Composite implements RootNodeObserver {
         addressText.setFocus();
         // TODO 替换为requestLayout()
         layout();
+        // 使用requestLayout()会会直接变矮，layout这是调整大小后变矮
+//        requestLayout();
     }
 
     private void handleMouseDownEvent(Event event) {
@@ -131,7 +145,7 @@ public class AddressBar extends Composite implements RootNodeObserver {
         breadcrumb.setVisible(isShow);
     }
 
-    public void setController(IBreadcrumbController controller) {
+    public void setController(IAddressBarController controller) {
         this.controller = controller;
     }
 
