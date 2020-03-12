@@ -37,7 +37,6 @@ public class RibbonPerspectiveRenderer extends PerspectiveRenderer {
 		try {
 			ribbon = new RibbonComposite(topComposite, SWT.FLAT | SWT.NO_TRIM);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		viewForm.setTopLeft(topComposite);

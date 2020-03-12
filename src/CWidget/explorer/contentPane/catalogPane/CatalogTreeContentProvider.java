@@ -1,5 +1,7 @@
-package CWidget.explorer.contentPane;
+package CWidget.explorer.contentPane.catalogPane;
 
+import CWidget.explorer.contentPane.IContentTreeModel;
+import CWidget.explorer.contentPane.Node;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
 public class CatalogTreeContentProvider implements ITreeContentProvider {

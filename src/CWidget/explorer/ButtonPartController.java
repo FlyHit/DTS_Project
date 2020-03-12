@@ -60,6 +60,7 @@ class ButtonPartController implements IButtonPartController {
             Image image = node.getImageDescriptor().createImage();
             MenuItem menuItem = new MenuItem(menu, SWT.PUSH);
             menuItem.setText(menuItemName);
+            // TODO 这里也有图标尺寸的问题，但是breadcrumb那种解决方法感觉并不是很好，所以先不改
             menuItem.setImage(image);
             menuItem.addSelectionListener(new SelectionAdapter() {
                 @Override

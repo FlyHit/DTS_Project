@@ -2,15 +2,15 @@ package CWidget.explorer.contentPane;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-public class Node {
+public abstract class Node {
     private String name;
     private ImageDescriptor imageDescriptor;
     private Object data;
 
-    public Node(String name, Object data) {
-        this.name = name;
+    public Node(Object data) {
         this.data = data;
-        this.imageDescriptor = ImageDescriptor.getMissingImageDescriptor();
+        setNodeName();
+        setNodeImageDescriptor();
     }
 
     public Object getData() {
@@ -36,4 +36,14 @@ public class Node {
     public void setImageDescriptor(ImageDescriptor imageDescriptor) {
         this.imageDescriptor = imageDescriptor;
     }
+
+    /**
+     * 利用data设置节点名
+     */
+    protected abstract void setNodeName();
+
+    /**
+     * 利用data设置节点的imageDescriptor
+     */
+    protected abstract void setNodeImageDescriptor();
 }

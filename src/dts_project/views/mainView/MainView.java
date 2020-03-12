@@ -19,7 +19,6 @@ public class MainView extends ViewPart {
     private List<List> lists;
 
     public MainView() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

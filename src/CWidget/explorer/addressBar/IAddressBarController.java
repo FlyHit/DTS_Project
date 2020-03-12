@@ -1,6 +1,8 @@
 package CWidget.explorer.addressBar;
 
 import CWidget.explorer.contentPane.Node;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 
 public interface IAddressBarController {
     /**
@@ -14,4 +16,12 @@ public interface IAddressBarController {
      * 跳转到目录
      */
     void jumpToCatalog(Node catalog);
+
+    /**
+     * 将节点的imageDescriptor转换为适合菜单显示的图片
+     *
+     * @param imageDescriptor 节点的imageDescriptor
+     * @return 菜单项的图片
+     */
+    Image getProperImage(ImageDescriptor imageDescriptor);
 }

@@ -1,9 +1,10 @@
 package CWidget.test.explorer.file;
 
 import CWidget.explorer.Explorer;
-import CWidget.explorer.contentPane.CatalogTreeContentProvider;
 import CWidget.explorer.contentPane.IContentTreeModel;
 import CWidget.explorer.contentPane.Node;
+import CWidget.explorer.contentPane.catalogPane.CatalogTreeContentProvider;
+import dts_project.views.catalogExplorerView.FileNode;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -50,7 +51,7 @@ public class ExplorerTest {
         shell.setText("SWT Application");
         shell.setLayout(new FillLayout());
 
-        Node node = new Node("eclipse", "C:\\Program Files\\eclipse rcp\\eclipse201912\\eclipse");
+        Node node = new FileNode("C:\\Program Files\\eclipse rcp\\eclipse201912\\eclipse");
         IContentTreeModel model = new FileTreeModel(node);
         Explorer explorer = new Explorer(shell, model);
         explorer.setContentProvider(new CatalogTreeContentProvider());

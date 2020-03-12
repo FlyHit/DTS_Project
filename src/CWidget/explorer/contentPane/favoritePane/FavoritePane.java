@@ -44,7 +44,6 @@ public class FavoritePane extends Composite implements FavoriteListObserver {
     private void add(Node node) {
         GalleryItem galleryItem = new GalleryItem(galleryGroup, SWT.NONE);
         galleryItem.setText(node.getName());
-        // TODO 设置图片
         galleryItem.setImage(node.getImageDescriptor().createImage(true));
         galleryItem.setData("node", node);
         layout();

@@ -22,6 +22,7 @@ public class AddressBar extends Composite implements RootNodeObserver {
     private GridData bcGridData;
     private GridData textGridData;
     private boolean isFavorite;
+    private boolean hasController;
 
     public AddressBar(Composite parent, IContentTreeModel model) {
         super(parent, SWT.FLAT);
@@ -67,7 +68,7 @@ public class AddressBar extends Composite implements RootNodeObserver {
             }
         });
         showAddressText(false);
-        addAll();
+
         model.registerRootNodeObserver(this);
     }
 
@@ -105,12 +106,12 @@ public class AddressBar extends Composite implements RootNodeObserver {
             if (item.getBounds().x < 0) {
                 MenuItem menuItem = new MenuItem(menu, SWT.PUSH);
                 menuItem.setText(item.getText());
+                // TODO getData的问题，似乎已经有节点数据，不用设置再获取
                 Node node = (Node) item.getData("node");
-                // TODO 菜单的图片大小一般是16px，而其他地方不是这尺寸，需要进行缩放
                 ImageDescriptor imageDescriptor = node.getImageDescriptor();
-                if (!imageDescriptor.equals(ImageDescriptor.getMissingImageDescriptor())) {
-                    menuItem.setImage(imageDescriptor.createImage());
-                }
+                Optional.ofNullable(controller).ifPresent(c -> {
+                    menuItem.setImage(controller.getProperImage(imageDescriptor));
+                });
 
                 menuItem.addSelectionListener(new SelectionAdapter() {
                     @Override
@@ -147,6 +148,14 @@ public class AddressBar extends Composite implements RootNodeObserver {
 
     public void setController(IAddressBarController controller) {
         this.controller = controller;
+
+        /*
+         * addAll()中有依赖于controller的方法， 初次设置了controller需调用一次addAll()完成初始化
+         */
+        if (!hasController) {
+            addAll();
+        }
+        hasController = true;
     }
 
     public void setFavorite(boolean favorite) {
@@ -173,17 +182,16 @@ public class AddressBar extends Composite implements RootNodeObserver {
         for (Node child : model.getChildren(node)) {
             MenuItem menuItem = new MenuItem(menu, SWT.PUSH);
             menuItem.setText(child.getName());
-            // TODO node设置imageDescriptor，这里菜单没有图标显示
             ImageDescriptor imageDescriptor = child.getImageDescriptor();
-            if (!imageDescriptor.equals(ImageDescriptor.getMissingImageDescriptor())) {
-                menuItem.setImage(imageDescriptor.createImage());
-            }
+            Optional.ofNullable(controller).ifPresent(c -> {
+                menuItem.setImage(controller.getProperImage(imageDescriptor));
+            });
 
             menuItem.addSelectionListener(new SelectionAdapter() {
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     Optional.ofNullable(controller).ifPresent(c -> {
-                        c.jumpToCatalog(node);
+                        c.jumpToCatalog(child);
                     });
                 }
             });

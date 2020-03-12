@@ -9,7 +9,7 @@ import java.util.List;
  * 该类提供了ICatalogTreeModel接口中一些方法的默认实现，由model类继承
  */
 public abstract class ContentTreeModel implements IContentTreeModel {
-    protected final Node ROOTNODE;
+    protected final Node ROOT_NODE;
     protected Node rootNode;
     private List<Node> roots;
     private List<RootNodeObserver> rootNodeObservers;
@@ -17,8 +17,8 @@ public abstract class ContentTreeModel implements IContentTreeModel {
     private List<FavoriteListObserver> favoriteObservers;
 
     public ContentTreeModel(Node rootNode) {
-        this.rootNode = rootNode;
-        this.ROOTNODE = rootNode;
+        setRootNode(rootNode);
+        this.ROOT_NODE = rootNode;
         this.roots = new ArrayList<>();
         this.favoriteList = new ArrayList<>();
         this.favoriteObservers = new ArrayList<>();
@@ -68,8 +68,8 @@ public abstract class ContentTreeModel implements IContentTreeModel {
     private void updateRoots(Node element) {
         Node parent = getParent(element);
 
-        if (!element.getData().equals(ROOTNODE.getData())) {
-            if (!parent.getData().equals(ROOTNODE.getData())) {
+        if (!element.getData().equals(ROOT_NODE.getData())) {
+            if (!parent.getData().equals(ROOT_NODE.getData())) {
                 updateRoots(parent);
             } else {
                 roots = new ArrayList<>();
@@ -90,9 +90,9 @@ public abstract class ContentTreeModel implements IContentTreeModel {
     @Override
     public void back(boolean isFavorite) {
         if (isFavorite) {
-            setRoots(ROOTNODE);
+            setRoots(ROOT_NODE);
         } else {
-            if (!rootNode.getData().equals(ROOTNODE.getData())) {
+            if (!rootNode.getData().equals(ROOT_NODE.getData())) {
                 int lastIndex = roots.size() - 1;
 
                 if (setRootNode(roots.get(lastIndex - 1))) {
