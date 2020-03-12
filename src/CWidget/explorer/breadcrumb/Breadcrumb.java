@@ -1,4 +1,4 @@
-package CWidget.explorer.addressBar.breadcrumb;
+package CWidget.explorer.breadcrumb;
 
 import CWidget.explorer.contentPane.IContentTreeModel;
 import CWidget.explorer.contentPane.Node;
@@ -26,8 +26,7 @@ public class Breadcrumb extends Composite implements RootNodeObserver {
 
     public Breadcrumb(Composite parent, IContentTreeModel model) {
         super(parent, SWT.FLAT);
-        GridLayout gridLayout = new GridLayout();
-        gridLayout.numColumns = 2;
+        GridLayout gridLayout = new GridLayout(2, false);
         gridLayout.marginWidth = 0;
         gridLayout.marginHeight = 0;
         setLayout(gridLayout);

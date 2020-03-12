@@ -79,14 +79,23 @@ public abstract class ContentTreeModel implements IContentTreeModel {
         roots.add(element);
     }
 
+    /**
+     * 返回上一级目录。若从收藏目录返回，返回至最上层目录。
+     *
+     * @param isFavorite 当前的目录是否是收藏目录
+     */
     @Override
-    public void back() {
-        if (!rootNode.getData().equals(ROOTNODE.getData())) {
-            int lastIndex = roots.size() - 1;
+    public void back(boolean isFavorite) {
+        if (isFavorite) {
+            setRoots(ROOTNODE);
+        } else {
+            if (!rootNode.getData().equals(ROOTNODE.getData())) {
+                int lastIndex = roots.size() - 1;
 
-            if (setRootNode(roots.get(lastIndex - 1))) {
-                roots.remove(lastIndex);
-                notifyRootNodeObserver();
+                if (setRootNode(roots.get(lastIndex - 1))) {
+                    roots.remove(lastIndex);
+                    notifyRootNodeObserver();
+                }
             }
         }
     }

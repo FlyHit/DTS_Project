@@ -1,4 +1,4 @@
-package dts_project.views.catalogExplorerView.navigateBar.breadcrumb;
+package CWidget.explorer.breadcrumb;
 
 import CWidget.explorer.contentPane.IContentTreeModel;
 import CWidget.explorer.contentPane.Node;

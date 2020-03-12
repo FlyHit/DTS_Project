@@ -4,7 +4,6 @@ import CWidget.explorer.Explorer;
 import CWidget.explorer.contentPane.CatalogTreeContentProvider;
 import CWidget.explorer.contentPane.IContentTreeModel;
 import CWidget.explorer.contentPane.Node;
-import CWidget.test.explorer.file.CatalogLabelProvider;
 import CWidget.test.explorer.file.FileTreeModel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;

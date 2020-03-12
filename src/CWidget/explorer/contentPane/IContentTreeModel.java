@@ -32,9 +32,9 @@ public interface IContentTreeModel {
     /**
      * 返回上级目录
      *
-     * @return 如果已经是最上级目录，返回false；反之，true
+     * @param isFavorite 当前的目录是否是收藏目录
      */
-    void back();
+    void back(boolean isFavorite);
 
     /**
      * 处理输入的地址

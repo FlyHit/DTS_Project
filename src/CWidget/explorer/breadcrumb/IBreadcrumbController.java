@@ -1,4 +1,4 @@
-package CWidget.explorer.addressBar.breadcrumb;
+package CWidget.explorer.breadcrumb;
 
 import CWidget.explorer.contentPane.Node;
 

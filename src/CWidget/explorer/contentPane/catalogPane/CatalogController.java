@@ -54,7 +54,7 @@ public class CatalogController implements ICatalogController {
             Optional.ofNullable(catalogPane.getSelectionItem()).ifPresent(item -> {
                 model.addToFavorite(item.getText(0));
                 // TODO 添加星星后刷新
-                // TODO 打开等操作后galleryItem会被dispose掉，然后星星就没了
+                // TODO 打开等操作后galleryItem会被dispose掉，然后星星就没了（可以和favoriteList比较）
                 item.setData(DefaultGalleryItemRenderer.OVERLAY_BOTTOM_RIGHT, starDescriptor.createImage());
             });
         }
